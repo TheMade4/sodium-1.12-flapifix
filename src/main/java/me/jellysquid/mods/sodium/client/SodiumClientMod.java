@@ -1,13 +1,13 @@
 package me.jellysquid.mods.sodium.client;
 
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = SodiumClientMod.MODID, useMetadata = true)
+@Mod(modid = SodiumClientMod.MODID, useMetadata = true, dependencies = ""
++ "after:fluidlogged_api@[3.0.0,);") // minimum supported mod versions
 public class SodiumClientMod {
 
     public static final String MODID = "vintagium";
@@ -34,7 +34,7 @@ public class SodiumClientMod {
     }
 
     private static SodiumGameOptions loadConfig() {
-        return SodiumGameOptions.load(Minecraft.getMinecraft().gameDir.toPath().resolve("config").resolve(MODID + "-options.json"));
+        return SodiumGameOptions.load(Loader.instance().getConfigDir().toPath().resolve(MODID + "-options.json"));
     }
 
     public static String getVersion() {

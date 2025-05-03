@@ -38,6 +38,12 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        url 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +62,7 @@ dependencies {
     implementation rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
     implementation rfg.deobf("curse.maven:censoredasm-460609:4800875")
     implementation rfg.deobf("curse.maven:fermiumasm-971247:5116326")
+    implementation rfg.deobf("maven.modrinth:fluidlogged-api:3.0.0") // minimum supported version
 
     // testing
     //implementation rfg.deobf("curse.maven:enderio-64578:4674244")

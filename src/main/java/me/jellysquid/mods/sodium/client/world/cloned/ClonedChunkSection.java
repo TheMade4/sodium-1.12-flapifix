@@ -13,6 +13,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
+import org.embeddedt.embeddium.compat.fluidlogged_api.FluidStateStorage;
+import org.embeddedt.embeddium.compat.fluidlogged_api.FluidloggedCompat;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -29,6 +31,7 @@ public class ClonedChunkSection {
     private ChunkSectionPos pos;
 
     private ExtendedBlockStorage data;
+    private FluidStateStorage fluidData;
 
     private Biome[] biomeData;
 
@@ -53,6 +56,10 @@ public class ClonedChunkSection {
 
         if (section == Chunk.NULL_BLOCK_STORAGE/*ChunkSection.isEmpty(section)*/) {
             section = EMPTY_SECTION;
+        }
+
+        if (FluidloggedCompat.IS_LOADED) {
+            this.fluidData = new FluidStateStorage(chunk, ChunkSectionPos.getBlockCoord(pos.getY()));
         }
 
         this.pos = pos;
@@ -85,6 +92,10 @@ public class ClonedChunkSection {
 
     public IBlockState getBlockState(int x, int y, int z) {
         return data.get(x, y, z);
+    }
+
+    public Object getFluidState(int x, int y, int z) {
+        return fluidData.get(x, y, z);
     }
 
     public Biome getBiomeForNoiseGen(int x, int z) {
